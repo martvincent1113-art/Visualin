@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.dart_tool/
+.flutter-plugins-dependencies
+android/.gradle/
+.pub-cache/
+build/
+
+# ML data (do not commit raw video/landmark data)
+*.mp4
+*.mov
+*.npy
+data/raw/
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
