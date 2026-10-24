@@ -253,4 +253,4 @@ To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, 
 2026-10-24 18:41:04,737 B T=48 s=2 epoch 115 loss 0.878 val top1 0.806 (best 0.816 @104) 427s
 2026-10-24 18:41:20,449 B T=48 s=2 epoch 120 loss 0.847 val top1 0.810 (best 0.816 @104) 442s
 2026-10-24 18:41:20,502 {"variant": "B", "t": 48, "seed": 2, "epochs_run": 120, "best_epoch": 104, "split_seed": 0, "units": 96, "feature_dim": 150, "val_top1": 0.8158730158730159, "augment": {"crop_min": 0.75, "warp": 0.5, "drop_p": 0.05, "mirror_p": 0.3, "rotate_deg": 12.0, "scale_range": 0.12, "noise_std": 0.01}}
-2026-10-24 18:42:19,355 results written to C:\Users\martv\OneDrive\Desktop\Visualin\ml\reports\results.json
+2026-10-24 18:42:19,355 results written to ml\reports\results.json
