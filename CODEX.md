@@ -18,8 +18,8 @@ adds Codex-specific notes on top of it.
 - Stack is **Flutter, confirmed** (`AGENTS.md` Section 3) — don't scaffold,
   suggest, or fall back to a different framework, even if it would be
   faster to prototype in.
-- When editing localization strings, add/update the Filipino string first
-  (it's the default), then the English variant.
+- When editing localization strings, add/update the English string first
+  (it's the default), then the Filipino variant (unverified until reviewed).
 
 ## Suggested task breakdown if starting from an empty repo
 
@@ -32,7 +32,7 @@ adds Codex-specific notes on top of it.
    `docs/ml-resources.md`) for isolated-word recognition.
 4. Build the localization layer with English as default locale before
    writing any screen copy.
-5. Build screens per `docs/product-spec.md` Section 7 (roadmap), Phase 1
+5. Build screens per `docs/product-spec.md` Section 6 (roadmap), Phase 1
    first.
 
 ## Verification before finishing a task
@@ -40,7 +40,7 @@ adds Codex-specific notes on top of it.
 - Run `flutter analyze` and `flutter test` before considering a change
   complete.
 - If the change touches any user-facing string, manually confirm the
-  Filipino string is the one used when no locale override is set.
+  English string is the one used when no locale override is set.
 - If the change touches the camera/ML pipeline, confirm it still targets
   `LIVE_STREAM` mode, not `IMAGE` mode (see `docs/architecture.md`).
 

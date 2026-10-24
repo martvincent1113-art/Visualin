@@ -5,7 +5,7 @@ around FSL as recognized under Republic Act No. 11106 (The Filipino Sign
 Language Act).
 
 > 🇵🇭 Sign language in this app is **FSL only**. Default UI and output text
-> language is **Filipino**; users may switch output text to **English** in
+> language is **English**; users may switch output text to **Filipino** in
 > Settings. See [docs/product-spec.md](docs/product-spec.md) for the full
 > language policy.
 
@@ -13,11 +13,9 @@ Language Act).
 
 - **FSL → Text/Speech** — live camera captures a signer, MediaPipe extracts
   hand/pose/face landmarks, a temporal model classifies the signed sequence,
-  output is rendered as text (Filipino by default) with optional TTS.
+  output is rendered as text (English by default, Filipino opt-in) with optional TTS.
 - **Text → FSL** — typed/dictated text is rendered back as FSL, via
   pre-recorded native-signer video clips (MVP) with fingerspelling fallback.
-- **Geofencing** — location-aware accessibility features (see
-  [docs/product-spec.md](docs/product-spec.md#5-geofencing-features)).
 
 ## Repo guide for agents (Codex / Claude Code)
 

@@ -51,7 +51,7 @@ Camera frame
    → Temporal model (see Section 3)
    → Prediction + confidence
    → Voting/smoothing buffer over last N predictions
-   → Render as text (Filipino default) + optional TTS
+   → Render as text (English default, Filipino opt-in) + optional TTS
 ```
 
 **Why `LIVE_STREAM` mode, not `IMAGE` mode:** `IMAGE` mode treats each frame
@@ -99,8 +99,8 @@ before isolated-word recognition is solid. Approaches, in order of effort:
 
 ## 6. Localization layer
 
-- Filipino is the default locale for **all** UI strings.
-- English is a single Settings toggle controlling **output text/speech
+- English is the default locale for **all** UI strings.
+- Filipino is a single opt-in Settings toggle controlling **output text/speech
   language only** — it must not affect which sign language is recognized
   or rendered (FSL is constant).
 - All UI copy routes through the localization layer; no hardcoded strings

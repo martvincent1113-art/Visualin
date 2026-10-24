@@ -113,7 +113,6 @@ terminology and accessibility standards this section references)
 | **Text-to-Speech (TTS)** | Optional audio playback of translated text, selectable voice/speed, Filipino and English voice options. |
 | **Camera Recognition Mode** | Dedicated live camera screen for continuous signer detection and translation, with on-screen landmark overlay feedback. |
 | **History** | Saved log of past translations for reference/review. |
-| **Geofencing** | Location-aware features (see Section 5). |
 | **Profile / Settings** | Language variant, accessibility, camera, notification, and account preferences. |
 
 ---
@@ -181,25 +180,7 @@ terminology and accessibility standards this section references)
 
 ---
 
-## 5. Geofencing Features
-
-Proposed use cases (to be finalized based on product priorities):
-
-1. **Regional sign variant awareness** — FSL itself has regional variation;
-   geofencing could surface a note or adjust suggestions based on the user's
-   region (e.g. Metro Manila vs. Visayas vs. Mindanao usage differences).
-2. **Nearby accessible services** — surface Deaf-friendly or interpreter-
-   available locations (government offices, hospitals, PFD chapters) when
-   the user is nearby.
-3. **Live interpreter request trigger** — near partner institutions (e.g.
-   courts, hospitals, LGU offices covered under RA 11106's interpreter
-   mandate), offer a shortcut to request a qualified human interpreter.
-4. **Offline model management** — auto-download a lightweight offline
-   translation model when leaving areas with reliable connectivity.
-
----
-
-## 6. Standards & Compliance Checklist
+## 5. Standards & Compliance Checklist
 
 - [ ] Legal alignment with **RA 11106** (Filipino Sign Language Act)
 - [ ] FSL vocabulary/grammar review by **Deaf-led organizations**, not
@@ -213,7 +194,7 @@ Proposed use cases (to be finalized based on product priorities):
 
 ---
 
-## 7. Suggested Roadmap
+## 6. Suggested Roadmap
 
 **Phase 1 — MVP**
 - Isolated (word-level) FSL sign recognition, limited vocabulary
@@ -229,13 +210,12 @@ Proposed use cases (to be finalized based on product priorities):
 
 **Phase 3 — Scale**
 - Non-manual marker recognition (facial grammar)
-- Geofencing features
 - Live interpreter partnership integration
 - Regional FSL variant support
 
 ---
 
-## 8. Open Questions
+## 7. Open Questions
 
 - Which FSL vocabulary set / regional variant to prioritize first?
 - Partnership plan for Deaf community co-design and data collection?

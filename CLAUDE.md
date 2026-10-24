@@ -15,25 +15,26 @@ Code–specific notes on top of it.
   [`docs/ml-resources.md`](docs/ml-resources.md) for an existing FSL dataset
   or reference repo to build from. Don't design a data pipeline from
   scratch when a reviewed FSL dataset (e.g. FSL-105) already fits.
-- When editing localization strings, update the Filipino string first (it's
-  the default), then the English variant — never the reverse, to avoid
-  English becoming the de facto source of truth.
+- When editing localization strings, update the English string first (it's
+  the default), then the Filipino variant. Leave Filipino text unverified
+  until a Filipino-fluent reviewer confirms it; never machine-translate
+  silently.
 - Run whatever test suite exists for the localization layer before
   finishing a task that touches UI copy.
 
 ## Suggested task breakdown if starting from an empty repo
 
 1. Scaffold the Flutter project (`flutter create .` in the repo root — see
-   `AGENTS.md` Section 3, stack is already confirmed as Flutter, don't ask
-   about React Native or any other framework).
+   `AGENTS.md` Section 3, stack is already confirmed as Flutter and is not an
+   open decision).
 2. Add `hand_landmarker` and wire up the MediaPipe camera pipeline
    (landmarks only, no classification yet) and confirm live landmark
    overlay works on Android.
 3. Integrate the FSL-105 baseline model (or a reference repo from
    `docs/ml-resources.md`) for isolated-word recognition.
-4. Build the localization layer with Filipino as default locale before
+4. Build the localization layer with English as default locale before
    writing any screen copy.
-5. Build screens per `docs/product-spec.md` Section 7 (roadmap), Phase 1
+5. Build screens per `docs/product-spec.md` Section 6 (roadmap), Phase 1
    first.
 
 ## What not to do without checking in
