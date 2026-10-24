@@ -131,6 +131,15 @@ class _CameraTranslationScreenState extends State<CameraTranslationScreen> {
     }
   }
 
+  void _closeCamera() {
+    final navigator = Navigator.of(context);
+    if (navigator.canPop()) {
+      navigator.pop();
+    } else {
+      navigator.pushReplacementNamed('/home');
+    }
+  }
+
   @override
   void dispose() {
     _isTearingDown = true;
@@ -158,56 +167,88 @@ class _CameraTranslationScreenState extends State<CameraTranslationScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Scaffold(
+    return AppScreen(
+      tabIndex: 1,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 48,
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, '/home'),
-                      icon: const Icon(Icons.close),
-                      tooltip: l10n.close,
-                    ),
-                    Expanded(
-                      child: Text(
-                        l10n.fslToText,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleMedium,
+        bottom: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final previewHeight =
+                (constraints.maxHeight * .43).clamp(230.0, 330.0);
+            return CustomScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(
+                    VisualinSpacing.screenCompact,
+                    6,
+                    VisualinSpacing.screenCompact,
+                    24,
+                  ),
+                  sliver: SliverList.list(
+                    children: [
+                      SizedBox(
+                        height: 48,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: VisualinSpacing.minimumTapTarget,
+                              height: VisualinSpacing.minimumTapTarget,
+                              child: IconButton(
+                                onPressed: _closeCamera,
+                                icon: const Icon(Icons.close),
+                                tooltip: l10n.close,
+                              ),
+                            ),
+                            Expanded(
+                              child: Semantics(
+                                header: true,
+                                child: Text(
+                                  l10n.fslToText,
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: VisualinSpacing.minimumTapTarget,
+                              height: VisualinSpacing.minimumTapTarget,
+                              child: IconButton(
+                                onPressed:
+                                    _cameras.length > 1 && !_isSwitchingCamera
+                                        ? _switchCamera
+                                        : null,
+                                icon: const Icon(
+                                  Icons.flip_camera_ios_outlined,
+                                ),
+                                tooltip: l10n.flipCamera,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: _cameras.length > 1 && !_isSwitchingCamera
-                          ? _switchCamera
-                          : null,
-                      icon: const Icon(Icons.flip_camera_ios_outlined),
-                      tooltip: l10n.flipCamera,
-                    ),
-                  ],
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: previewHeight,
+                        child: _CameraPreviewPanel(
+                          controller: _controller,
+                          hands: _hands,
+                          initializing: _initializing,
+                          cameraUnavailable: l10n.cameraUnavailable,
+                          frameLabel: l10n.cameraFrameLabel,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      _TranslationResultPanel(hands: _hands, l10n: l10n),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: _CameraPreviewPanel(
-                  controller: _controller,
-                  hands: _hands,
-                  initializing: _initializing,
-                  cameraUnavailable: l10n.cameraUnavailable,
-                  frameLabel: l10n.cameraFrameLabel,
-                ),
-              ),
-              const SizedBox(height: 16),
-              _TranslationResultPanel(hands: _hands, l10n: l10n),
-            ],
-          ),
+              ],
+            );
+          },
         ),
       ),
-      bottomNavigationBar: const VisualinBottomNav(index: 1),
     );
   }
 }
@@ -263,14 +304,16 @@ class _CameraPreviewPanel extends StatelessWidget {
                   ),
                   IgnorePointer(
                     child: Center(
-                      child: Container(
-                        width: 172,
-                        height: 224,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: VisualinColors.primaryOrange,
-                            width: 2,
+                      child: FractionallySizedBox(
+                        widthFactor: .56,
+                        heightFactor: .72,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: VisualinColors.primaryOrange,
+                              width: 1.5,
+                            ),
                           ),
                         ),
                       ),
@@ -314,6 +357,7 @@ class _TranslationResultPanel extends StatelessWidget {
           liveRegion: true,
           label: '$status. $guidance',
           child: SectionCard(
+            padding: const EdgeInsets.all(18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -338,17 +382,18 @@ class _TranslationResultPanel extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            hasHand
-                                ? Icons.check_circle_outline
-                                : Icons.pan_tool_outlined,
+                            Icons.pan_tool_alt_outlined,
                             size: 16,
-                            color: VisualinColors.primaryOrange,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             status,
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                  color: VisualinColors.primaryOrange,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -357,15 +402,17 @@ class _TranslationResultPanel extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(guidance, style: Theme.of(context).textTheme.bodyMedium),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(14),
-                  decoration: const BoxDecoration(
-                    color: VisualinColors.orangeTint,
+                  constraints: const BoxConstraints(minHeight: 72),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: VisualinRadii.control,
+                    border: Border.all(color: Theme.of(context).dividerColor),
                   ),
                   child: Text(
                     l10n.translationWaiting,
@@ -377,38 +424,111 @@ class _TranslationResultPanel extends StatelessWidget {
                   l10n.fslToOutputLanguage(outputLanguage),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  l10n.confidenceUnavailable,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    OutlinedButton.icon(
-                      onPressed: null,
-                      icon: const Icon(Icons.volume_up_outlined),
-                      label: Text(l10n.speak),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: null,
-                      icon: const Icon(Icons.copy_outlined),
-                      label: Text(l10n.copy),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: null,
-                      icon: const Icon(Icons.bookmark_border),
-                      label: Text(l10n.save),
-                    ),
-                  ],
+                const _TranslationActions(
+                  onSpeak: null,
+                  onCopy: null,
+                  onSave: null,
                 ),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+/// Compact actions are intentionally absent until the recognition pipeline
+/// produces a verified result. This prevents unavailable controls from
+/// competing with the detection guidance or implying that a result exists.
+class _TranslationActions extends StatelessWidget {
+  const _TranslationActions({
+    this.onSpeak,
+    this.onCopy,
+    this.onSave,
+  });
+
+  final VoidCallback? onSpeak;
+  final VoidCallback? onCopy;
+  final VoidCallback? onSave;
+
+  @override
+  Widget build(BuildContext context) {
+    if (onSpeak == null && onCopy == null && onSave == null) {
+      return const SizedBox.shrink();
+    }
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: 14),
+      child: Row(
+        children: [
+          _TranslationAction(
+            icon: Icons.volume_up_outlined,
+            label: l10n.speak,
+            onTap: onSpeak,
+          ),
+          const SizedBox(width: 8),
+          _TranslationAction(
+            icon: Icons.copy_outlined,
+            label: l10n.copy,
+            onTap: onCopy,
+          ),
+          const SizedBox(width: 8),
+          _TranslationAction(
+            icon: Icons.bookmark_border,
+            label: l10n.save,
+            onTap: onSave,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TranslationAction extends StatelessWidget {
+  const _TranslationAction({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Semantics(
+        button: true,
+        enabled: onTap != null,
+        label: label,
+        excludeSemantics: true,
+        child: Material(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: VisualinRadii.control,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: VisualinRadii.control,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 58),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, size: 21),
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -423,7 +543,7 @@ class LandmarkPainter extends CustomPainter {
   static final Paint _linePaint = Paint()
     ..color = const Color(0xB3FF6B0A)
     ..style = PaintingStyle.stroke
-    ..strokeWidth = 2
+    ..strokeWidth = 1.6
     ..strokeCap = StrokeCap.round
     ..strokeJoin = StrokeJoin.round;
   static final Paint _jointPaint = Paint()
@@ -434,9 +554,9 @@ class LandmarkPainter extends CustomPainter {
     ..style = PaintingStyle.fill
     ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5);
 
-  static const double _jointRadius = 3.5;
-  static const double _fingertipRadius = 5.5;
-  static const double _fingertipGlowRadius = 9;
+  static const double _jointRadius = 3;
+  static const double _fingertipRadius = 4.5;
+  static const double _fingertipGlowRadius = 8;
 
   @override
   void paint(Canvas canvas, Size size) {

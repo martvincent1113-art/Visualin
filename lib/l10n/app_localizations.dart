@@ -42,6 +42,7 @@ class AppLocalizations {
   String get noTranslationsBody => _t('noTranslationsBody');
   String get recentTranslations => _t('recentTranslations');
   String get home => _t('home');
+  String get cameraTab => _t('cameraTab');
   String get history => _t('history');
   String get flipCamera => _t('flipCamera');
   String get cameraUnavailable => _t('cameraUnavailable');
@@ -73,16 +74,13 @@ class AppLocalizations {
   String get smallText => _t('smallText');
   String get defaultText => _t('defaultText');
   String get largeText => _t('largeText');
+  String get extraLargeText => _t('extraLargeText');
   String get settingsFeatureUnavailable => _t('settingsFeatureUnavailable');
-  String onboardingProgress(int current, int total) =>
-      _t('onboardingProgress')
-          .replaceAll('{current}', '$current')
-          .replaceAll('{total}', '$total');
-  String get historyStub => _t('historyStub');
-  String get textToFslStub => _t('textToFslStub');
+  String onboardingProgress(int current, int total) => _t('onboardingProgress')
+      .replaceAll('{current}', '$current')
+      .replaceAll('{total}', '$total');
   String get permissionDenied => _t('permissionDenied');
   String get allowCamera => _t('allowCamera');
-  String get later => _t('later');
   String get openSettings => _t('openSettings');
   String get handDetected => _t('handDetected');
   String get noHandDetected => _t('noHandDetected');
@@ -91,7 +89,6 @@ class AppLocalizations {
   String get cameraFrameLabel => _t('cameraFrameLabel');
   String get translatedText => _t('translatedText');
   String get translationWaiting => _t('translationWaiting');
-  String get confidenceUnavailable => _t('confidenceUnavailable');
   String get speak => _t('speak');
   String get copy => _t('copy');
   String get save => _t('save');
@@ -100,118 +97,220 @@ class AppLocalizations {
   String get on => _t('on');
   String get off => _t('off');
   String get close => _t('close');
+  String get notNow => _t('notNow');
+  String get cameraPrivacyBody => _t('cameraPrivacyBody');
+  String get cameraPermissionSettingsBody => _t('cameraPermissionSettingsBody');
+  String get historyEmptyBody => _t('historyEmptyBody');
+  String get enterText => _t('enterText');
+  String get textInputHint => _t('textInputHint');
+  String get viewSigns => _t('viewSigns');
+  String get textToFslUnavailable => _t('textToFslUnavailable');
 
   static const _messages = <String, Map<String, String>>{
     'fil': {
       'appName': 'Visualin',
       'tagline': 'Makita ang wika. Malayang magsalita.',
       'welcome': 'Maligayang pagdating sa Visualin',
-      'skip': 'Laktawan', 'next': 'Susunod', 'getStarted': 'Magsimula',
-       'onboardingSignText': 'Isalin ang FSL sa teksto',
-       'onboardingSignTextBody': 'Gamitin ang iyong kamera upang gawing mababasang teksto ang Filipino Sign Language.',
-       'onboardingTextSign': 'Ihanda ang teksto para sa FSL',
-       'onboardingTextSignBody': 'Mag-type ng mensahe at tingnan ang salin nito sa Filipino Sign Language.',
-       'onboardingSpeech': 'Pakinggan ang salin gamit ang boses',
-       'onboardingSpeechBody': 'Pakinggan ang isinaling teksto nang malakas.',
-       'onboardingCameraTitle': 'Kailangan ang access sa kamera',
-       'onboardingCameraBody': 'Ginagamit ang access sa kamera upang makilala ang mga senyas sa FSL. Pinoproseso ang video nang live para sa pagsasalin at hindi ito sine-save. Maaari mong baguhin ang pahintulot sa kamera sa Settings anumang oras.',
-       'cameraPermissionTitle': 'Kailangan ang access sa kamera',
-       'cameraPermissionBody': 'Ginagamit ang access sa kamera upang makilala ang mga senyas sa FSL. Pinoproseso ang video nang live para sa pagsasalin at hindi ito sine-save. Maaari mong baguhin ang pahintulot sa kamera sa Settings anumang oras.',
+      'skip': 'Laktawan',
+      'next': 'Susunod',
+      'getStarted': 'Magsimula',
+      'onboardingSignText': 'Isalin ang FSL sa teksto',
+      'onboardingSignTextBody':
+          'Gamitin ang iyong kamera upang gawing mababasang teksto ang Filipino Sign Language.',
+      'onboardingTextSign': 'Ihanda ang teksto para sa FSL',
+      'onboardingTextSignBody':
+          'Mag-type ng mensahe at tingnan ang salin nito sa Filipino Sign Language.',
+      'onboardingSpeech': 'Pakinggan ang salin gamit ang boses',
+      'onboardingSpeechBody': 'Pakinggan ang isinaling teksto nang malakas.',
+      'onboardingCameraTitle': 'Kailangan ang access sa kamera',
+      'onboardingCameraBody':
+          'Ginagamit ang access sa kamera upang makilala ang mga senyas sa FSL.',
+      'cameraPermissionTitle': 'Kailangan ang pahintulot sa kamera',
+      'cameraPermissionBody':
+          'Kailangan ng Visualin ang access sa kamera upang makilala ang mga senyas sa FSL.',
       'homePrompt': 'Ano ang gusto mong isalin?',
-      'fslToText': 'FSL patungong Teksto', 'fslToTextBody': 'Magsenyas gamit ang iyong kamera',
-       'textToFsl': 'Teksto patungong FSL', 'textToFslBody': 'Mag-type ng teksto upang makita ang mga senyas', 'noTranslations': 'Wala pang mga salin',
-       'noTranslationsBody': 'Makikita rito ang iyong mga kamakailang salin.',
-      'recentTranslations': 'Mga kamakailang salin', 'home': 'Tahanan',
+      'fslToText': 'FSL patungong Teksto',
+      'fslToTextBody': 'Magsenyas gamit ang iyong kamera',
+      'textToFsl': 'Teksto patungong FSL',
+      'textToFslBody': 'Mag-type ng teksto upang makita ang mga senyas',
+      'noTranslations': 'Wala pang mga salin',
+      'noTranslationsBody': 'Makikita rito ang iyong mga kamakailang salin.',
+      'recentTranslations': 'Mga kamakailang salin',
+      'home': 'Tahanan',
+      'cameraTab': 'Camera',
       'history': 'Kasaysayan',
-      'flipCamera': 'Baligtarin ang kamera', 'cameraUnavailable': 'Hindi available ang kamera',
-      'settings': 'Mga setting', 'outputLanguage': 'Wika ng output na teksto',
-      'outputLanguageBody': 'Binabago nito ang wika ng output na teksto at boses lamang. FSL pa rin ang sign language.',
-      'translation': 'Pagsasalin', 'signLanguage': 'Sign language',
+      'flipCamera': 'Baligtarin ang kamera',
+      'cameraUnavailable': 'Hindi available ang kamera',
+      'settings': 'Mga setting',
+      'outputLanguage': 'Wika ng output na teksto',
+      'outputLanguageBody':
+          'Binabago nito ang wika ng output na teksto at boses lamang. FSL pa rin ang sign language.',
+      'translation': 'Pagsasalin',
+      'signLanguage': 'Sign language',
       'signLanguageValue': 'Filipino Sign Language (FSL)',
       'signLanguageBody': 'FSL lamang ang kasalukuyang sinusuportahan.',
-       'filipino': 'Filipino', 'english': 'Ingles', 'accessibility': 'Accessibility',
-       'language': 'Wika', 'app': 'App', 'settingsSubtitle': 'I-customize ang iyong karanasan',
-       'fontSize': 'Laki ng teksto', 'textSizeDescription': 'Ayusin ang laki ng teksto',
-       'highContrast': 'Mataas na contrast', 'highContrastDescription': 'Palakihin ang visibility',
-       'reducedMotion': 'Bawas na galaw', 'reducedMotionDescription': 'Bawasan ang mga animation',
-       'cameraPreferences': 'Mga kagustuhan sa kamera', 'cameraPreferencesDescription': 'Pamahalaan ang iyong kamera',
-       'helpSupport': 'Tulong at suporta', 'helpSupportDescription': 'Kumuha ng tulong sa Visualin',
-       'about': 'Tungkol sa Visualin', 'aboutDescription': 'Bersyon at impormasyon ng app',
-       'smallText': 'Maliit', 'defaultText': 'Default', 'largeText': 'Malaki',
-       'settingsFeatureUnavailable': 'Malapit nang maging available ang option na ito.',
-       'onboardingProgress': '{current} sa {total}',
-      'historyStub': 'Wala pang kasaysayan ng salin.',
-      'textToFslStub': 'Malapit na ang feature na teksto patungong FSL.',
-      'permissionDenied': 'Hindi pinayagan ang kamera.', 'allowCamera': 'Payagan ang kamera', 'later': 'Mamaya',
-      'openSettings': 'Buksan ang settings', 'handDetected': 'May nakitang kamay',
-       'noHandDetected': 'Walang nakitang kamay',
-       'cameraGuidanceNoHand': 'Ilagay ang iyong mga kamay sa loob ng frame.',
-       'cameraGuidanceHandDetected': 'May nakitang kamay. Hawakan nang matatag ang senyas.',
-       'cameraFrameLabel': 'Gabay sa posisyon ng kamay',
-       'translatedText': 'Isinaling teksto',
-       'translationWaiting': 'Makikita rito ang isang na-verify na salin ng FSL.',
-       'confidenceUnavailable': 'Hindi pa available ang confidence',
-       'speak': 'Basahin', 'copy': 'Kopyahin', 'save': 'I-save',
-       'fslToOutputLanguage': 'FSL patungong {language}',
-       'on': 'Naka-on', 'off': 'Naka-off', 'close': 'Isara',
+      'filipino': 'Filipino',
+      'english': 'Ingles',
+      'accessibility': 'Accessibility',
+      'language': 'Wika',
+      'app': 'App',
+      'settingsSubtitle': 'I-customize ang iyong karanasan',
+      'fontSize': 'Laki ng teksto',
+      'textSizeDescription': 'Ayusin ang laki ng teksto',
+      'highContrast': 'Mataas na contrast',
+      'highContrastDescription': 'Palakihin ang visibility',
+      'reducedMotion': 'Bawas na galaw',
+      'reducedMotionDescription': 'Bawasan ang mga animation',
+      'cameraPreferences': 'Mga kagustuhan sa kamera',
+      'cameraPreferencesDescription': 'Pamahalaan ang iyong kamera',
+      'helpSupport': 'Tulong at suporta',
+      'helpSupportDescription': 'Kumuha ng tulong sa Visualin',
+      'about': 'Tungkol sa Visualin',
+      'aboutDescription': 'Bersyon at impormasyon ng app',
+      'smallText': 'Maliit',
+      'defaultText': 'Default',
+      'largeText': 'Malaki',
+      'extraLargeText': 'Napakalaki',
+      'settingsFeatureUnavailable':
+          'Malapit nang maging available ang option na ito.',
+      'onboardingProgress': '{current} sa {total}',
+      'permissionDenied': 'Hindi pinayagan ang kamera.',
+      'allowCamera': 'Payagan ang kamera',
+      'openSettings': 'Buksan ang settings',
+      'handDetected': 'May nakitang kamay',
+      'noHandDetected': 'Walang nakitang kamay',
+      'cameraGuidanceNoHand': 'Ilagay ang iyong mga kamay sa loob ng frame.',
+      'cameraGuidanceHandDetected':
+          'May nakitang kamay. Hawakan nang matatag ang senyas.',
+      'cameraFrameLabel': 'Gabay sa posisyon ng kamay',
+      'translatedText': 'Isinaling teksto',
+      'translationWaiting':
+          'Makikita rito ang isang na-verify na salin ng FSL.',
+      'speak': 'Basahin',
+      'copy': 'Kopyahin',
+      'save': 'I-save',
+      'fslToOutputLanguage': 'FSL → {language}',
+      'on': 'Naka-on',
+      'off': 'Naka-off',
+      'close': 'Isara',
+      'notNow': 'Hindi muna',
+      'cameraPrivacyBody':
+          'Pinoproseso ang video sa iyong device at hindi ito sine-save.',
+      'cameraPermissionSettingsBody':
+          'Maaari mong baguhin ang pahintulot sa kamera sa Settings sa ibang pagkakataon.',
+      'historyEmptyBody': 'Makikita rito ang iyong mga naka-save na salin.',
+      'enterText': 'Maglagay ng teksto',
+      'textInputHint': 'I-type ang iyong mensahe',
+      'viewSigns': 'Tingnan ang mga senyas',
+      'textToFslUnavailable':
+          'Wala pang na-verify na nilalamang FSL para sa mensaheng ito.',
     },
     'en': {
       'appName': 'Visualin',
-      'tagline': 'See language. Speak freely.', 'welcome': 'Welcome to Visualin',
-      'skip': 'Skip', 'next': 'Next', 'getStarted': 'Get started',
-       'onboardingSignText': 'Translate FSL into text',
-       'onboardingSignTextBody': 'Use your camera to turn Filipino Sign Language into readable text.',
-       'onboardingTextSign': 'Prepare text for FSL',
-       'onboardingTextSignBody': 'Type a message and view its Filipino Sign Language translation.',
-       'onboardingSpeech': 'Listen to translations with speech',
-       'onboardingSpeechBody': 'Hear translated text spoken aloud.',
-       'onboardingCameraTitle': 'Camera access is required',
-       'onboardingCameraBody': 'Camera access is used to recognize FSL signs. Video is processed live for translation and is not saved. You can change camera permission later in Settings.',
-       'cameraPermissionTitle': 'Camera access is required',
-       'cameraPermissionBody': 'Camera access is used to recognize FSL signs. Video is processed live for translation and is not saved. You can change camera permission later in Settings.',
+      'tagline': 'See language. Speak freely.',
+      'welcome': 'Welcome to Visualin',
+      'skip': 'Skip',
+      'next': 'Next',
+      'getStarted': 'Get started',
+      'onboardingSignText': 'Translate FSL into text',
+      'onboardingSignTextBody':
+          'Use your camera to turn Filipino Sign Language into readable text.',
+      'onboardingTextSign': 'Prepare text for FSL',
+      'onboardingTextSignBody':
+          'Type a message and view its Filipino Sign Language translation.',
+      'onboardingSpeech': 'Listen to translations with speech',
+      'onboardingSpeechBody': 'Hear translated text spoken aloud.',
+      'onboardingCameraTitle': 'Camera access is required',
+      'onboardingCameraBody': 'Camera access is used to recognize FSL signs.',
+      'cameraPermissionTitle': 'Camera permission needed',
+      'cameraPermissionBody':
+          'Visualin needs camera access to recognize FSL signs.',
       'homePrompt': 'What would you like to translate?',
-      'fslToText': 'FSL to Text', 'fslToTextBody': 'Sign using your camera',
-       'textToFsl': 'Text to FSL', 'textToFslBody': 'Type text to view signs', 'noTranslations': 'No translations yet',
-       'noTranslationsBody': 'Your recent translations will appear here.',
-      'recentTranslations': 'Recent translations', 'home': 'Home',
-      'history': 'History', 'flipCamera': 'Flip camera',
-      'cameraUnavailable': 'Camera unavailable', 'settings': 'Settings',
+      'fslToText': 'FSL to Text',
+      'fslToTextBody': 'Sign using your camera',
+      'textToFsl': 'Text to FSL',
+      'textToFslBody': 'Type text to view signs',
+      'noTranslations': 'No translations yet',
+      'noTranslationsBody': 'Your recent translations will appear here.',
+      'recentTranslations': 'Recent translations',
+      'home': 'Home',
+      'cameraTab': 'Camera',
+      'history': 'History',
+      'flipCamera': 'Flip camera',
+      'cameraUnavailable': 'Camera unavailable',
+      'settings': 'Settings',
       'outputLanguage': 'Output text language',
-      'outputLanguageBody': 'This changes output text and speech only. The sign language remains FSL.',
-      'translation': 'Translation', 'signLanguage': 'Sign language',
+      'outputLanguageBody':
+          'This changes output text and speech only. The sign language remains FSL.',
+      'translation': 'Translation',
+      'signLanguage': 'Sign language',
       'signLanguageValue': 'Filipino Sign Language (FSL)',
       'signLanguageBody': 'Currently, only FSL is supported.',
-       'filipino': 'Filipino', 'english': 'English', 'accessibility': 'Accessibility',
-       'language': 'Language', 'app': 'App', 'settingsSubtitle': 'Customize your experience',
-       'fontSize': 'Text size', 'textSizeDescription': 'Adjust text size',
-       'highContrast': 'High contrast', 'highContrastDescription': 'Increase visibility',
-       'reducedMotion': 'Reduced motion', 'reducedMotionDescription': 'Minimize animations',
-       'cameraPreferences': 'Camera preferences', 'cameraPreferencesDescription': 'Manage your camera',
-       'helpSupport': 'Help and support', 'helpSupportDescription': 'Get help with Visualin',
-       'about': 'About Visualin', 'aboutDescription': 'App version and information',
-       'smallText': 'Small', 'defaultText': 'Default', 'largeText': 'Large',
-       'settingsFeatureUnavailable': 'This option will be available soon.',
-       'onboardingProgress': '{current} of {total}',
-      'historyStub': 'No translation history yet.', 'textToFslStub': 'Text to FSL is coming soon.',
-      'permissionDenied': 'Camera permission was not granted.', 'allowCamera': 'Allow camera', 'later': 'Later',
-      'openSettings': 'Open settings', 'handDetected': 'Hand detected',
-       'noHandDetected': 'No hand detected',
-       'cameraGuidanceNoHand': 'Move your hands inside the frame.',
-       'cameraGuidanceHandDetected': 'Hand detected. Hold the sign steady.',
-       'cameraFrameLabel': 'Hand position guide',
-       'translatedText': 'Translated text',
-       'translationWaiting': 'A verified FSL translation will appear here.',
-       'confidenceUnavailable': 'Confidence unavailable',
-       'speak': 'Speak', 'copy': 'Copy', 'save': 'Save',
-       'fslToOutputLanguage': 'FSL to {language}',
-       'on': 'On', 'off': 'Off', 'close': 'Close',
+      'filipino': 'Filipino',
+      'english': 'English',
+      'accessibility': 'Accessibility',
+      'language': 'Language',
+      'app': 'App',
+      'settingsSubtitle': 'Customize your experience',
+      'fontSize': 'Text size',
+      'textSizeDescription': 'Adjust text size',
+      'highContrast': 'High contrast',
+      'highContrastDescription': 'Increase visibility',
+      'reducedMotion': 'Reduced motion',
+      'reducedMotionDescription': 'Minimize animations',
+      'cameraPreferences': 'Camera preferences',
+      'cameraPreferencesDescription': 'Manage your camera',
+      'helpSupport': 'Help and support',
+      'helpSupportDescription': 'Get help with Visualin',
+      'about': 'About Visualin',
+      'aboutDescription': 'App version and information',
+      'smallText': 'Small',
+      'defaultText': 'Default',
+      'largeText': 'Large',
+      'extraLargeText': 'Extra Large',
+      'settingsFeatureUnavailable': 'This option will be available soon.',
+      'onboardingProgress': '{current} of {total}',
+      'permissionDenied': 'Camera permission was not granted.',
+      'allowCamera': 'Allow camera',
+      'openSettings': 'Open settings',
+      'handDetected': 'Hand detected',
+      'noHandDetected': 'No hand detected',
+      'cameraGuidanceNoHand': 'Move your hands inside the frame.',
+      'cameraGuidanceHandDetected': 'Hand detected. Hold the sign steady.',
+      'cameraFrameLabel': 'Hand position guide',
+      'translatedText': 'Translated text',
+      'translationWaiting': 'A verified FSL translation will appear here.',
+      'speak': 'Speak',
+      'copy': 'Copy',
+      'save': 'Save',
+      'fslToOutputLanguage': 'FSL → {language}',
+      'on': 'On',
+      'off': 'Off',
+      'close': 'Close',
+      'notNow': 'Not now',
+      'cameraPrivacyBody':
+          'Video is processed on your device and is not saved.',
+      'cameraPermissionSettingsBody':
+          'You can change camera permission later in Settings.',
+      'historyEmptyBody': 'Your saved translations will appear here.',
+      'enterText': 'Enter text',
+      'textInputHint': 'Type your message',
+      'viewSigns': 'View signs',
+      'textToFslUnavailable':
+          'Verified FSL content is not available for this message yet.',
     },
   };
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
-  @override bool isSupported(Locale locale) => ['fil', 'en'].contains(locale.languageCode);
-  @override Future<AppLocalizations> load(Locale locale) async => AppLocalizations(locale);
-  @override bool shouldReload(_AppLocalizationsDelegate old) => false;
+  @override
+  bool isSupported(Locale locale) =>
+      ['fil', 'en'].contains(locale.languageCode);
+  @override
+  Future<AppLocalizations> load(Locale locale) async =>
+      AppLocalizations(locale);
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
 }

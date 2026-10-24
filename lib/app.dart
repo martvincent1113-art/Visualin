@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/app_localizations.dart';
@@ -71,15 +72,24 @@ class _VisualinAppState extends State<VisualinApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      theme: VisualinTheme.light(highContrast: _highContrast, reducedMotion: _reducedMotion),
+      theme: VisualinTheme.light(
+          highContrast: _highContrast, reducedMotion: _reducedMotion),
       builder: (context, child) {
         final mediaQuery = MediaQuery.of(context);
-        return MediaQuery(
-          data: mediaQuery.copyWith(
-            disableAnimations: _reducedMotion || mediaQuery.disableAnimations,
-            textScaler: _PreferenceTextScaler(mediaQuery.textScaler, _textScale),
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark.copyWith(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: VisualinColors.background,
+            systemNavigationBarIconBrightness: Brightness.dark,
           ),
-          child: child!,
+          child: MediaQuery(
+            data: mediaQuery.copyWith(
+              disableAnimations: _reducedMotion || mediaQuery.disableAnimations,
+              textScaler:
+                  _PreferenceTextScaler(mediaQuery.textScaler, _textScale),
+            ),
+            child: child!,
+          ),
         );
       },
       home: SplashScreen(preferences: widget.preferences),
@@ -145,6 +155,9 @@ class VisualinTheme {
           defaultTargetPlatform == TargetPlatform.iOS ? '.SF Pro Text' : null,
     );
     final ink = highContrast ? Colors.black : VisualinColors.primaryText;
+    final accent = highContrast
+        ? VisualinColors.highContrastOrange
+        : VisualinColors.primaryOrange;
     final textTheme = baseTheme.textTheme.copyWith(
       displaySmall: baseTheme.textTheme.displaySmall!.copyWith(
         fontSize: 34,
@@ -195,11 +208,11 @@ class VisualinTheme {
       scaffoldBackgroundColor:
           highContrast ? Colors.white : VisualinColors.background,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: VisualinColors.primaryOrange,
-        primary: VisualinColors.primaryOrange,
+        seedColor: accent,
+        primary: accent,
         surface: VisualinColors.surface,
         onSurface: ink,
-        outline: highContrast ? Colors.black : VisualinColors.divider,
+        outline: highContrast ? Colors.black : VisualinColors.border,
       ),
       textTheme: textTheme,
       appBarTheme: AppBarTheme(
@@ -209,43 +222,76 @@ class VisualinTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         titleTextStyle: textTheme.titleMedium,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       dividerColor: highContrast ? Colors.black : VisualinColors.divider,
-      inputDecorationTheme: const InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: VisualinColors.surface,
+        contentPadding: const EdgeInsets.all(18),
         border: OutlineInputBorder(
           borderRadius: VisualinRadii.control,
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(
+            color: highContrast ? Colors.black : VisualinColors.border,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: VisualinRadii.control,
+          borderSide: BorderSide(
+            color: highContrast ? Colors.black : VisualinColors.border,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: VisualinRadii.control,
+          borderSide: BorderSide(color: accent, width: 2),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: VisualinColors.primaryOrange,
+          backgroundColor: accent,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(52),
-          shape: const RoundedRectangleBorder(borderRadius: VisualinRadii.control),
+          shape:
+              const RoundedRectangleBorder(borderRadius: VisualinRadii.control),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: VisualinColors.primaryOrange,
+          foregroundColor: accent,
           minimumSize: const Size.fromHeight(52),
           side: BorderSide(
-            color: highContrast ? Colors.black : VisualinColors.primaryOrange,
+            color: highContrast ? Colors.black : accent,
           ),
-          shape: const RoundedRectangleBorder(borderRadius: VisualinRadii.control),
+          shape:
+              const RoundedRectangleBorder(borderRadius: VisualinRadii.control),
         ),
       ),
       pageTransitionsTheme: reducedMotion
-          ? const PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
-              TargetPlatform.android: _NoTransitionsBuilder(),
-              TargetPlatform.iOS: _NoTransitionsBuilder(),
-              TargetPlatform.linux: _NoTransitionsBuilder(),
-              TargetPlatform.macOS: _NoTransitionsBuilder(),
-              TargetPlatform.windows: _NoTransitionsBuilder(),
-            })
+          ? const PageTransitionsTheme(
+              builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: _NoTransitionsBuilder(),
+                  TargetPlatform.iOS: _NoTransitionsBuilder(),
+                  TargetPlatform.linux: _NoTransitionsBuilder(),
+                  TargetPlatform.macOS: _NoTransitionsBuilder(),
+                  TargetPlatform.windows: _NoTransitionsBuilder(),
+                })
           : const PageTransitionsTheme(),
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ink,
+        contentTextStyle: const TextStyle(color: Colors.white),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14)),
+        ),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: VisualinColors.surface,
+        surfaceTintColor: Colors.transparent,
+        showDragHandle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+      ),
     );
   }
 }
@@ -260,7 +306,8 @@ class _NoTransitionsBuilder extends PageTransitionsBuilder {
     Animation<double> animation,
     Animation<double> secondaryAnimation,
     Widget child,
-  ) => child;
+  ) =>
+      child;
 }
 
 class _PreferenceTextScaler extends TextScaler {
@@ -270,7 +317,8 @@ class _PreferenceTextScaler extends TextScaler {
   final double preferenceScale;
 
   @override
-  double scale(double fontSize) => systemScaler.scale(fontSize) * preferenceScale;
+  double scale(double fontSize) =>
+      systemScaler.scale(fontSize) * preferenceScale;
 
   // TextScaler exposes this legacy estimate for framework compatibility. The
   // actual scale calculation above intentionally retains the platform's

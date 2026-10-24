@@ -66,11 +66,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(l10n.fontSize, style: Theme.of(context).textTheme.titleLarge),
+                Text(l10n.fontSize,
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 12),
                 _TextSizeOption(label: l10n.smallText, value: 0.9),
                 _TextSizeOption(label: l10n.defaultText, value: 1.0),
                 _TextSizeOption(label: l10n.largeText, value: 1.2),
+                _TextSizeOption(label: l10n.extraLargeText, value: 1.35),
               ],
             ),
           ),
@@ -89,16 +91,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Scaffold(
+    return AppScreen(
+      tabIndex: 3,
       body: SafeArea(
+        bottom: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+          padding: const EdgeInsets.fromLTRB(
+            VisualinSpacing.screen,
+            18,
+            VisualinSpacing.screen,
+            32,
+          ),
           children: [
-            Text(l10n.settings, style: Theme.of(context).textTheme.displaySmall),
-            const SizedBox(height: 4),
-            Text(l10n.settingsSubtitle, style: Theme.of(context).textTheme.bodyMedium),
+            PageHeader(
+              title: l10n.settings,
+              subtitle: l10n.settingsSubtitle,
+            ),
             const SizedBox(height: 32),
-            _SectionLabel(label: l10n.language),
+            SectionHeader(label: l10n.language, uppercase: true),
             const SizedBox(height: 8),
             _SettingsGroup(
               children: [
@@ -112,7 +122,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.outputLanguage, style: Theme.of(context).textTheme.titleMedium),
+                      Text(l10n.outputLanguage,
+                          style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(height: 12),
                       Semantics(
                         label: l10n.outputLanguage,
@@ -122,18 +133,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ButtonSegment(
                               value: 'fil',
                               label: Text(l10n.filipino),
-                              icon: l10n.isEnglish ? null : const Icon(Icons.check),
+                              icon: l10n.isEnglish
+                                  ? null
+                                  : const Icon(Icons.check),
                             ),
                             ButtonSegment(
                               value: 'en',
                               label: Text(l10n.english),
-                              icon: l10n.isEnglish ? const Icon(Icons.check) : null,
+                              icon: l10n.isEnglish
+                                  ? const Icon(Icons.check)
+                                  : null,
                             ),
                           ],
                           selected: {l10n.isEnglish ? 'en' : 'fil'},
-                          style: const ButtonStyle(
-                            minimumSize: WidgetStatePropertyAll<Size>(
+                          showSelectedIcon: false,
+                          style: ButtonStyle(
+                            minimumSize: const WidgetStatePropertyAll<Size>(
                               Size.fromHeight(44),
+                            ),
+                            backgroundColor:
+                                WidgetStateProperty.resolveWith<Color?>(
+                                    (states) {
+                              return states.contains(WidgetState.selected)
+                                  ? VisualinColors.orangeTint
+                                  : VisualinColors.surface;
+                            }),
+                            foregroundColor:
+                                WidgetStateProperty.resolveWith<Color?>(
+                                    (states) {
+                              return states.contains(WidgetState.selected)
+                                  ? Theme.of(context).colorScheme.primary
+                                  : VisualinColors.primaryText;
+                            }),
+                            side: WidgetStatePropertyAll<BorderSide>(
+                              BorderSide(color: Theme.of(context).dividerColor),
+                            ),
+                            shape: const WidgetStatePropertyAll<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: VisualinRadii.control,
+                              ),
                             ),
                           ),
                           onSelectionChanged: (value) =>
@@ -151,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             const SizedBox(height: 32),
-            _SectionLabel(label: l10n.accessibility),
+            SectionHeader(label: l10n.accessibility, uppercase: true),
             const SizedBox(height: 8),
             _SettingsGroup(
               children: [
@@ -182,7 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             const SizedBox(height: 32),
-            _SectionLabel(label: l10n.app),
+            SectionHeader(label: l10n.app, uppercase: true),
             const SizedBox(height: 8),
             _SettingsGroup(
               children: [
@@ -211,25 +249,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const VisualinBottomNav(index: 3),
-    );
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: VisualinColors.secondaryText,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.7,
-          ),
     );
   }
 }
@@ -299,7 +318,7 @@ class _SettingsActionRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           child: Row(
             children: [
-              Icon(icon, color: VisualinColors.secondaryText),
+              VisualinIconTile(icon: icon, size: 40, iconSize: 21),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -307,7 +326,8 @@ class _SettingsActionRow extends StatelessWidget {
                   children: [
                     Text(title, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 4),
-                    Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
+                    Text(subtitle,
+                        style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
               ),
@@ -350,12 +370,13 @@ class _SettingsSwitchRow extends StatelessWidget {
       child: SwitchListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         minTileHeight: 68,
-        secondary: Icon(icon, color: VisualinColors.secondaryText),
+        secondary: VisualinIconTile(icon: icon, size: 40, iconSize: 21),
         title: Text(label, style: Theme.of(context).textTheme.titleMedium),
-        subtitle: Text(description, style: Theme.of(context).textTheme.bodyMedium),
+        subtitle:
+            Text(description, style: Theme.of(context).textTheme.bodyMedium),
         value: value,
         onChanged: onChanged,
-        activeTrackColor: VisualinColors.primaryOrange,
+        activeTrackColor: Theme.of(context).colorScheme.primary,
         activeThumbColor: Colors.white,
         inactiveTrackColor: VisualinColors.inactive,
         inactiveThumbColor: Colors.white,

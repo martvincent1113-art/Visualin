@@ -53,8 +53,9 @@ orange with an icon and text when communicating recognition state.
 - Use outline-style icons with a consistent visual weight.
 - Icon-only actions require tooltips or semantic labels and have at least a
   44×44pt hit area.
-- Bottom navigation has four equal-width items: Home, FSL to Text, History,
-  and Settings. It is a normal white bar with a subtle top divider — never a
+- Bottom navigation has four equal-width items: Home, Camera, History, and
+  Settings. The Camera destination retains “FSL to Text” as its screen title.
+  The navigation is a normal white bar with a subtle top divider — never a
   floating camera action.
 - Icons are 24–26px. The active icon has an orange tint background; the icon
   and text are orange. Inactive items are gray. Selection is communicated by
