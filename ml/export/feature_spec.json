@@ -1,0 +1,25 @@
+{
+  "variant": "A",
+  "t": 32,
+  "feature_dim": 128,
+  "input_shape": [
+    1,
+    32,
+    128
+  ],
+  "dtype": "float32",
+  "hand_block": "slot0 (21x[x,y,z]) | slot1 (21x[x,y,z]) | present0 | present1",
+  "constants": {
+    "WRIST": 0,
+    "MIDDLE_MCP": 9,
+    "EPS": 1e-06
+  },
+  "golden": [
+    "two",
+    "right_only",
+    "left_only",
+    "mixed",
+    "dropout"
+  ],
+  "doc": "ml/README.md#feature-contract"
+}

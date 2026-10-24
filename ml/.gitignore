@@ -1,0 +1,12 @@
+.venv/
+data/
+models/
+__pycache__/
+*.npz
+*.npy
+*.mp4
+*.keras
+*.h5
+reports/*.png.tmp
+runs/
+export/_saved_model/

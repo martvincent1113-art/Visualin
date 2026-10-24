@@ -1,0 +1,9 @@
+{
+  "sequences": 40,
+  "max_abs_diff": 5.364418029785156e-07,
+  "tolerance": 0.001,
+  "passed": true,
+  "argmax_agreement": 1.0,
+  "tflite_test_top1": 0.8568075117370892,
+  "tflite_test_n": 426
+}

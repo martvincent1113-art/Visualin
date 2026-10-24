@@ -1,0 +1,632 @@
+[
+  {
+    "id": 0,
+    "en": "GOOD MORNING",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 1,
+    "en": "GOOD AFTERNOON",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 2,
+    "en": "GOOD EVENING",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 3,
+    "en": "HELLO",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 4,
+    "en": "HOW ARE YOU",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 5,
+    "en": "IM FINE",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 6,
+    "en": "NICE TO MEET YOU",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 7,
+    "en": "THANK YOU",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 8,
+    "en": "YOURE WELCOME",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 9,
+    "en": "SEE YOU TOMORROW",
+    "fil": null,
+    "category": "GREETING"
+  },
+  {
+    "id": 10,
+    "en": "UNDERSTAND",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 11,
+    "en": "DON’T UNDERSTAND",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 12,
+    "en": "KNOW",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 13,
+    "en": "DON’T KNOW",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 14,
+    "en": "NO",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 15,
+    "en": "YES",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 16,
+    "en": "WRONG",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 17,
+    "en": "CORRECT",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 18,
+    "en": "SLOW",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 19,
+    "en": "FAST",
+    "fil": null,
+    "category": "SURVIVAL"
+  },
+  {
+    "id": 20,
+    "en": "ONE",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 21,
+    "en": "TWO",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 22,
+    "en": "THREE",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 23,
+    "en": "FOUR",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 24,
+    "en": "FIVE",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 25,
+    "en": "SIX",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 26,
+    "en": "SEVEN",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 27,
+    "en": "EIGHT",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 28,
+    "en": "NINE ",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 29,
+    "en": "TEN",
+    "fil": null,
+    "category": "NUMBER"
+  },
+  {
+    "id": 30,
+    "en": "JANUARY",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 31,
+    "en": "FEBRUARY",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 32,
+    "en": "MARCH",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 33,
+    "en": "APRIL",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 34,
+    "en": "MAY",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 35,
+    "en": "JUNE",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 36,
+    "en": "JULY",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 37,
+    "en": "AUGUST",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 38,
+    "en": "SEPTEMBER",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 39,
+    "en": "OCTOBER",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 40,
+    "en": "NOVEMBER",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 41,
+    "en": "DECEMBER",
+    "fil": null,
+    "category": "CALENDAR"
+  },
+  {
+    "id": 42,
+    "en": "MONDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 43,
+    "en": "TUESDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 44,
+    "en": "WEDNESDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 45,
+    "en": "THURSDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 46,
+    "en": "FRIDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 47,
+    "en": "SATURDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 48,
+    "en": "SUNDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 49,
+    "en": "TODAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 50,
+    "en": "TOMORROW",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 51,
+    "en": "YESTERDAY",
+    "fil": null,
+    "category": "DAYS"
+  },
+  {
+    "id": 52,
+    "en": "FATHER",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 53,
+    "en": "MOTHER",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 54,
+    "en": "SON",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 55,
+    "en": "DAUGHTER",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 56,
+    "en": "GRANDFATHER",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 57,
+    "en": "GRANDMOTHER",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 58,
+    "en": "UNCLE",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 59,
+    "en": "AUNTIE",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 60,
+    "en": "COUSIN",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 61,
+    "en": "PARENTS",
+    "fil": null,
+    "category": "FAMILY"
+  },
+  {
+    "id": 62,
+    "en": "BOY",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 63,
+    "en": "GIRL",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 64,
+    "en": "MAN",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 65,
+    "en": "WOMAN",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 66,
+    "en": "DEAF",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 67,
+    "en": "HARD OF HEARING",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 68,
+    "en": "WEELCHAIR PERSON",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 69,
+    "en": "BLIND",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 70,
+    "en": "DEAF BLIND",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 71,
+    "en": "MARRIED",
+    "fil": null,
+    "category": "RELATIONSHIPS"
+  },
+  {
+    "id": 72,
+    "en": "BLUE",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 73,
+    "en": "GREEN",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 74,
+    "en": "RED",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 75,
+    "en": "BROWN",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 76,
+    "en": "BLACK",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 77,
+    "en": "WHITE",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 78,
+    "en": "YELLOW",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 79,
+    "en": "ORANGE",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 80,
+    "en": "GRAY",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 81,
+    "en": "PINK",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 82,
+    "en": "VIOLET",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 83,
+    "en": "LIGHT",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 84,
+    "en": "DARK",
+    "fil": null,
+    "category": "COLOR"
+  },
+  {
+    "id": 85,
+    "en": "BREAD",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 86,
+    "en": "EGG",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 87,
+    "en": "FISH",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 88,
+    "en": "MEAT",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 89,
+    "en": "CHICKEN",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 90,
+    "en": "SPAGHETTI",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 91,
+    "en": "RICE",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 92,
+    "en": "LONGANISA",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 93,
+    "en": "SHRIMP",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 94,
+    "en": "CRAB",
+    "fil": null,
+    "category": "FOOD"
+  },
+  {
+    "id": 95,
+    "en": "HOT",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 96,
+    "en": "COLD",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 97,
+    "en": "JUICE",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 98,
+    "en": "MILK",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 99,
+    "en": "COFFEE",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 100,
+    "en": "TEA",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 101,
+    "en": "BEER",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 102,
+    "en": "WINE",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 103,
+    "en": "SUGAR",
+    "fil": null,
+    "category": "DRINK"
+  },
+  {
+    "id": 104,
+    "en": "NO SUGAR",
+    "fil": null,
+    "category": "DRINK"
+  }
+]
