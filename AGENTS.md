@@ -101,3 +101,7 @@ flutter test
 - Reference the relevant doc section in the commit body when a change
   touches the language policy or the ML pipeline (e.g. "see
   docs/architecture.md#normalization").
+
+Current task queue and project status: docs/agent-handoff.md
+Design source of truth: docs/design-system-v3.md. Design skills may
+review and suggest, but must not replace its colors, fonts or tokens.

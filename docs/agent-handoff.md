@@ -1,8 +1,9 @@
 # Visualin — Agent Handoff (Claude Code + Codex)
 
 You have no chat history. This file is everything you need to continue.
-**Read `AGENTS.md` first** (language policy and standing rules). Where this file
-and the code disagree about status, trust the code and report the difference.
+**Read `AGENTS.md` first**, then `docs/design-system-v3.md` for any UI work.
+Where this file and the code disagree about status, trust the code and report
+the difference.
 
 ---
 
@@ -15,199 +16,124 @@ and **Text to FSL**. Owner: Mart (software engineering student). He pastes your
 reports back to a chat assistant, so **end every task with a short, honest
 report** (what changed, what you verified, what you could not verify).
 
-## 2. Hard rules (from AGENTS.md, repeated because they matter)
+## 2. Hard rules
 
 - **FSL only.** No ASL/BSL data, models, charts or flags. ASL repos are pattern
   references only.
 - **English is the default UI/output language.** Filipino is an opt-in Settings
-  toggle that changes output text/speech only. All UI strings go through the
-  localization layer (ARB). No hardcoded copy.
-- **Geofencing is out of scope.** Do not add, stub or document it. Remove any
-  leftover mentions.
-- **Never persist camera frames or landmark data** in the app. History (later)
-  stores translated text only.
-- Standing a11y rules on every screen: 44x44pt targets, screen-reader labels on
-  icon-only controls, no color-alone state, font scaling respected.
-- Orange token is `#FF6B00`. Design tokens live in `docs/design-system.md`.
+  toggle that changes output text/speech only. All UI strings go through ARB.
+- **Geofencing is out of scope.** Do not add, stub or document it.
+- **Never persist camera frames or landmark data** in the app. History stores
+  translated text only.
+- A11y on every screen: 44x44 targets, screen-reader labels on icon-only
+  controls, no color-alone state, text scaling respected.
+- **Design source of truth: `docs/design-system-v3.md`** (orange `#FF6B00` +
+  white brand, Inter, Phosphor icons, `#CC4A00` behind/for text). Design skills
+  may review and suggest, but must not replace its colors, fonts or tokens.
 - Do not invent FSL data. Unknown or unsupported sign = say so, never guess.
-- Do not stub fake recognition results in the UI.
+- No fake recognition results in the UI.
+- Do not touch the `_isProcessing` gate or camera lifecycle fixes without a
+  measured problem.
+- Ask before adding any dependency not named here, in `AGENTS.md` or in v3.
+- Never push unless Mart's prompt says to. Never rewrite history.
 
 ## 3. Status snapshot (verify before relying on it)
 
-**Built and device-confirmed by Mart:** camera + `hand_landmarker` pipeline
-(LIVE_STREAM, CPU delegate, `_isProcessing` gate, correct sensor-to-preview
-transform, canonical 21-link topology, restyled overlay, `ResolutionPreset.high`,
-front camera default); no crash on closing the camera screen.
+- **Camera + `hand_landmarker` pipeline:** built and device-confirmed.
+- **Screens:** Splash, Onboarding, Home, Camera (FSL to Text), History stub,
+  Settings, Text to FSL stub. UX refinement batch is on `ui/ux-refinement`.
+- **Task 0 (audit + docs fixes):** Codex reported it done and pushed on
+  `ui/ux-refinement`. Its report (audit table, camera-caching finding) was not
+  reviewed yet. Re-verify.
+- **Task 1 (FSL-105 pipeline):** done on local branch `ml/fsl105-pipeline`
+  (commits `9327977`, `8adfd9d`), not pushed. Results: Variant A (hands only,
+  T=32) 82.8% ± 2.4 top-1, 97.3% top-5 (mean of 3 seeds); Variant B (hands +
+  pose) did not help. Split is random per clip, no signer IDs. Golden vectors
+  in `ml/export/golden/` are synthetic. Mediapipe 0.10.21 in Python vs
+  0.10.26.1 in the app.
+- **Design-system v3 pass:** not started.
+- **Task 2 (on-device recognition):** not started.
 
-**Built, reported by Codex:** Splash, Onboarding (4 slides), Home, Camera,
-Settings, stub screens for Text to FSL and History, `shared_preferences`
-persistence (`hasOnboarded`, locale), English default / Filipino toggle,
-11 passing tests at last report.
+## 4. Task queue (in this order)
 
-**Unknown (Task 0 finds out):**
-- UX refinement batch: terminology rename to "FSL to Text", Home hierarchy and
-  header, camera-permission re-request flow, Settings "Translation" section,
-  switch styling, hand-detection status indicator, nav "Profile" to "Settings",
-  accessibility pass, and the camera-caching check for the permission copy.
-- Design-system v2 pass (Poppins via `google_fonts`, shadows, 8px scale, outline
-  icons, `#FAFAFA` background, 12% orange icon-circle tint).
-- 60fps audit.
-- Whether docs on disk say English default and whether geofencing text remains.
+### Task A1 — Design v3: tokens, Home, Settings
+Branch `ui/apple-pass` from `ui/ux-refinement`. Implement v3 tokens in
+`lib/theme/`, add `phosphor_flutter` (approved), replace icons per the v3 table,
+restyle Home and Settings only. Report screenshots and measured contrast
+ratios. Stop for Mart's OK.
 
-## 4. Task queue
+### Task 2a — On-device inference foundations (no UI)
+Branch `ml/task2-integration` from `ml/fsl105-pipeline`.
+1. **Spike:** add a TFLite runtime and confirm it coexists with
+   `hand_landmarker` on Android (build, run on device, load the exported model,
+   run one inference, check logcat for native errors and the tensor-writes
+   error). If it conflicts, try in order: another TFLite plugin, a small
+   platform-channel wrapper over Android TFLite, a pure-Dart GRU forward pass
+   from exported weights.
+2. **Dart feature extraction** mirroring `ml/src/features.py` exactly, tested
+   against the golden vectors.
+3. **Coordinate-frame check on device:** prove the Dart pipeline converts phone
+   frames (portrait, rotated, front-camera mirrored, different aspect ratio from
+   640x360) into the frame the model was trained on. Add a test and describe
+   the handling.
 
-### Task 0 — Audit and housekeeping (do first, small, either agent)
+### Task A2 — Design v3: remaining screens
+On `ui/apple-pass` after Mart's OK: Camera (full-bleed preview, frosted 44x44
+close/flip, result bottom sheet; update the overlay transform for the crop and
+add a test), History (inset grouped list, mascot empty state), Splash (mascot
+on transparent background), Onboarding, motion and haptics (Reduced motion
+respected).
 
-1. Run `flutter analyze` and `flutter test`; report results.
-2. Report, as a table, which UX-batch and design-pass items are present in code
-   (check `pubspec.yaml` for `google_fonts`, nav labels, Home header string,
-   Settings structure, permission re-request, switch styling, hand-detection
-   indicator).
-3. Report what you find for the camera-caching question: does the app write any
-   video frames or landmark data to temp files, logs, or crash reports? If yes,
-   the privacy copy "Video is processed for translation and is not saved" must
-   not ship.
-4. Docs fixes only: remove all geofencing mentions (README, `product-spec.md`
-   Section 5 and roadmap, anything else); make sure `product-spec.md` and
-   `design-system.md` say English default; make sure `CLAUDE.md` says English
-   default and does not say "Flutter or React Native".
-5. Do not change app code in this task except trivial fixes you report.
+### Task 2b — Sign segmentation and recognition UI
+After 2a passes and A2 is merged. Branch from the merged result.
+- **Segmentation state machine:** Ready -> Signing -> Ended -> Recognizing ->
+  Result / No sign -> Ready. Start = hands appear and wrist motion exceeds a
+  threshold (keep ~0.3 s pre-roll). End = hands leave the frame or drop, or
+  stay still ~0.6 s. Classify each segment **once**, resampled to T=32 exactly
+  like training.
+- **No duplicates / no guesses:** confidence threshold plus top-2 margin; below
+  it show "No sign recognized". A repeated identical sign counts only after a
+  return to rest.
+- **Manual mode:** tap, 3-2-1 countdown, auto-stop at rest.
+- All thresholds are named constants; report the values tuned on device.
+- Replace "Recognition is coming soon" with real output. Result shows
+  Speak/Copy/Save. Output honors the English/Filipino toggle; if a sign's `fil`
+  is null, fall back to English and mark it.
+- State shown with text + icon, never color alone.
 
-### Task 1 — FSL-105 recognition pipeline (offline, Python) — Phase 2a
+### Later (do not start)
+- `flutter_tts`, `drift` history (text only: text, direction, output language,
+  timestamp, favorite), Recent Translations UI.
+- **Text to FSL MVP:** dictionary keyed by **sign ID** (many English/Filipino
+  words -> one sign ID -> one clip; Tagalog input treated as Filipino; every
+  word-to-sign link confirmed by an FSL signer), phrase match before word
+  match, play clips in order with `video_player`, fingerspell unknown words.
+  Note in the paper: word-by-word order is signed English/Filipino, not full
+  FSL grammar.
+- **Task 3 — Blender sign animations:** record FSL signs, capture hands with
+  MediaPipe, drive a Rigify rig, render one short video per sign. Every
+  animation reviewed by an FSL signer. Hands-only avatars cannot show facial
+  grammar; state that limitation.
 
-Goal: a trained, exported sign classifier whose input features are exactly what
-the on-device pipeline can produce. **Work only inside `ml/`.** This is
-independent of the Flutter app, so it can run in parallel with UI work.
+## 5. Testing tools (use them; report what you verified on device)
 
-**Data**
-- FSL-105: https://data.mendeley.com/datasets/48y2y99mb9/2 (also on Hugging Face
-  as `SEACrowd/fsl_105`; its loading script may not work with newer `datasets`
-  versions, prefer the raw files). 105 signs, about 2,130 four-second clips,
-  provided train/test split and labels, CC-BY-4.0.
-- If the download needs a browser, stop and ask Mart to download it into
-  `ml/data/raw/` (gitignored). Never commit videos or `.npy` files.
-- Check and report whether the provided split is signer-independent. If signer
-  IDs are not available, say so. A signer-dependent split overstates accuracy.
-
-**Layout**
-```
-ml/
-  README.md              one command per stage, exact versions
-  requirements.txt       pin versions; pick a Python version supported by BOTH
-                         mediapipe and tensorflow (verify before installing)
-  src/extract_landmarks.py
-  src/features.py        normalization + windowing (single source of truth)
-  src/train.py
-  src/evaluate.py
-  src/export_tflite.py
-  data/                  gitignored
-  export/                model, label map, golden vectors
-```
-Windows/PowerShell is the dev environment: use a venv (`py -m venv .venv`).
-
-**Feature contract (decide, document in `ml/README.md`, and keep stable)**
-- Variant A (must match the app today): two hands x 21 landmarks x (x, y, z)
-  = 126 values per frame, plus a per-hand "present" mask. Missing hand = zeros
-  plus mask 0.
-- Variant B (offline experiment only): A plus MediaPipe Pose upper-body points.
-  Purpose: measure how much body-relative position helps, to decide whether to
-  bring in `kwon_mediapipe_landmarker` earlier. Report the accuracy gap.
-- Inspect what the Flutter `hand_landmarker` plugin actually returns (coordinate
-  space, handedness, z meaning) and make the Python extraction match it. Do not
-  assume Python and Dart return the same convention.
-- Mirroring: the front camera preview is mirrored. Choose one convention (for
-  example, feed the classifier un-mirrored coordinates, or canonicalize
-  handedness) and document it. Add mirror augmentation if signers' handedness
-  varies.
-- Normalization: translate relative to a stable reference (wrist or a body
-  reference), scale by a size reference. Raw image coordinates are not allowed
-  as the only features.
-- Windowing: resample each clip to a fixed length T. Try T in {32, 48, 64} and
-  report which wins.
-
-**Model and training**
-- Start small: 1-2 GRU layers (about 64-128 units), dropout, softmax over 105
-  classes. Keras/TensorFlow.
-- Augment: small rotation/scale/translation of landmarks, noise, time-warp,
-  random dropped frames. Landmarks are background-independent, but detection
-  quality on a phone in a normal room is the real risk (FSL-105 was filmed on a
-  blue background at 640x360).
-- Report top-1 and top-5 on the provided test split, per-class accuracy, and a
-  confusion matrix image. State clearly that the source thesis's 100% top-5
-  figure has not been reproduced unless you reproduce it.
-
-**Export**
-- Convert to TFLite. GRU conversion can need fixed shapes or extra ops; try it
-  early, before heavy tuning. If TFLite conversion proves painful, export raw
-  weights to JSON as a fallback (see Task 2, option C).
-- Verify the TFLite model against the Keras model on at least 20 sequences
-  (max absolute difference under 1e-3 for float32) and report it.
-- Write `export/label_map.json` and `export/signs.json` with fields
-  `id`, `en`, `fil`. Use the dataset's labels for `en`. **Leave `fil` null until
-  a Filipino-fluent reviewer confirms it. Do not machine-translate silently.**
-- Write golden test vectors (`export/golden/`): a few input feature sequences and
-  the expected output probabilities, for Dart-side tests in Task 2.
-- Add FSL-105 attribution to a `NOTICE`/credits file (CC-BY-4.0 requires it).
-  Citation: Tupal and Cabatuan, "FSL105: The Video Filipino Sign Language Sign
-  Database of Introductory 105 FSL Signs."
-
-**Done when:** the pipeline reproduces from `ml/README.md`, the report lists
-numbers for Variants A and B, TFLite parity is verified, golden vectors exist,
-and no raw data is committed.
-
-### Task 2 — On-device integration (after Task 1 passes; Flutter)
-
-1. **Spike first on a branch:** confirm a TFLite runtime coexists with
-   `hand_landmarker`. `tflite_flutter` was recommended but never checked
-   against the TFLite/MediaPipe native libraries bundled in `hand_landmarker`.
-   Options if it conflicts:
-   - A: another Flutter TFLite plugin that passes the spike,
-   - B: a small platform-channel wrapper over the Android TFLite library,
-   - C: run the small GRU as a pure-Dart forward pass using exported weights.
-2. Dart feature extraction must reproduce the Python features exactly. Prove it
-   with a test that feeds the golden input vectors and compares outputs.
-3. Add a rolling frame buffer, a voting/smoothing window, and a confidence
-   threshold. Below threshold shows "No sign recognized", never a guess.
-4. Replace the "Recognition is coming soon" placeholder with real output.
-   Recognition states ("Recognizing...", result with Speak/Copy/Save) only now
-   become allowed. Output text honors the English/Filipino toggle; if a sign's
-   `fil` is null, fall back to English and mark it.
-5. Keep the `_isProcessing` gate and the camera lifecycle fixes intact. Re-run
-   the close-screen crash check and the logcat check for the native tensor
-   error after integration.
-
-### Task A — UI polish (Codex lane, parallel to Task 1)
-
-Only items Task 0 shows are missing: design-system v2 pass (show the Home screen
-result before repainting everything), onboarding supporting sentence per slide,
-then the 60fps audit using DevTools in profile mode. Do not touch the camera
-detection/overlay logic without a measured problem.
-
-### Later (do not start yet)
-
-`flutter_tts` output; `drift` history (text only; fields: text, direction,
-output language, timestamp, favorite); Recent Translations UI; Text to FSL MVP
-(word-to-clip lookup with `video_player` plus fingerspelling fallback);
-`kwon_mediapipe_landmarker` for face/pose if Variant B justifies it.
-
-## 5. Working agreement for two agents
-
-- Suggested split: **Claude Code takes Task 1 (`ml/`)**, **Codex takes Task 0
-  then Task A (Flutter)**. Do not edit each other's directories.
-- Use separate git branches (for example `ml/fsl105-pipeline` and
-  `ui/design-pass`). If the project is not a git repo yet, ask Mart before
-  running `git init`. Do not push or rewrite history.
-- Ask before adding any dependency not named in this file or `AGENTS.md`.
-- Windows paths and PowerShell syntax in any command you give Mart.
+- **Dart MCP server** (`dart mcp-server`): run tests, read runtime errors,
+  inspect the widget tree, hot reload.
+- **Maestro** for on-device UI flows, targeting widgets by semantics labels.
+  Prefer the CLI (`maestro test`) over the Maestro MCP for long sessions.
+- Before every report: `flutter analyze`, `flutter test`, launch on the
+  connected phone, check runtime errors, walk changed screens with a Maestro
+  flow, then run `/ponytail-review` and include its findings.
+- You cannot sign in front of the camera. Never claim recognition works on
+  real signing; say it needs an FSL signer.
 
 ## 6. Known risks to keep honest about
 
-- Phone-camera accuracy will probably be below dataset accuracy (background,
-  lighting, signers, 105-sign vocabulary only).
-- Isolated signs only. Continuous signing needs segmentation and is out of
-  scope for now.
-- Mart is not assumed to be an FSL signer. Real-world validation needs an
-  FSL-fluent person. Do not have anyone "test" by guessing signs.
-- No Deaf-community review yet. Treat all vocabulary and any Filipino glosses
-  as unverified until reviewed.
+- Phone-camera accuracy will likely be below the 82.8% offline figure
+  (background, lighting, new signers, random split).
+- Isolated signs only. 105-sign vocabulary only.
+- Hands are slotted by image position (plugin gives no handedness); crossing
+  hands can swap.
+- No Deaf-community review yet. All vocabulary and Filipino glosses unverified.
 - `Jayveeeee24/iSpeak-Signs` is AGPL-3.0: UX reference only.
+- Verify the FSL-105 citation in `ml/NOTICE.md` against the dataset page.
